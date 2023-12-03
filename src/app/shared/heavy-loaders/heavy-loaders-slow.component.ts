@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <section [ngClass]="['w-full h-[300px]', cssClass]">
+    <section [ngClass]="['w-full h-[500px]', cssClass]">
       heavy-loaders-slow works!
     </section>
   `,
@@ -16,6 +16,8 @@ export class HeavyLoadersSlowComponent {
 
   constructor() {
     const start = Date.now();
+
+    console.log('HeavyLoadersSlowComponent');
 
     // Simulate heavy load and block the UI thread
     while (Date.now() - start < 3000) {
