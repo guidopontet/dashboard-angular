@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 
-import { User, UsersResponse } from '@interfaces/req-res';
-import { delay } from 'rxjs';
+import { delay, map } from 'rxjs';
+
+import { User, UserResponse, UsersResponse } from '@interfaces/req-res';
 
 interface State {
   users: User[];
@@ -38,5 +39,13 @@ export class UsersService {
           users: response.data,
         })
       });
+  }
+
+  getUserById(id: number) {
+    return this.httpClient.get<UserResponse>(`https://reqres.in/api/users/${id}`)
+      .pipe(
+        delay(1500), // delay the response for 1.5 seconds to simulate slow network
+        map((response) => response.data)
+      )
   }
 }

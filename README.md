@@ -11,6 +11,10 @@ Proyect for testing purposes, using Angular 17 new features.
 - Defer Views
 - Signals
 
+## Preview
+
+![Preview](./src/assets/screenshot.png)
+
 ## Development server
 
 Run `npm install` to install dependencies and `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
