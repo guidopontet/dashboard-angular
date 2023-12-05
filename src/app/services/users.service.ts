@@ -1,6 +1,8 @@
-import { Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, computed, inject, signal } from '@angular/core';
 
-import { User } from '@interfaces/req-res';
+import { User, UsersResponse } from '@interfaces/req-res';
+import { delay } from 'rxjs';
 
 interface State {
   users: User[];
@@ -12,6 +14,8 @@ interface State {
 })
 export class UsersService {
 
+  private httpClient = inject(HttpClient);
+
   // state is a private property that is only accessible from within this class. This is
   // recommended to prevent accidental modification of the state from outside of the
   // class. Also, it is recommended to declare with # instead of private keyword, because
@@ -22,8 +26,17 @@ export class UsersService {
     users: [],
   });
 
-  constructor() {
-    console.log('Loading users...');
-  }
+  public users = computed(() => this.#state().users);
+  public loading = computed(() => this.#state().loading);
 
+  constructor() {
+    this.httpClient.get<UsersResponse>('https://reqres.in/api/users')
+      .pipe(delay(1500)) // delay the response for 1.5 seconds to simulate slow network
+      .subscribe((response) => {
+        this.#state.set({
+          loading: false,
+          users: response.data,
+        })
+      });
+  }
 }
