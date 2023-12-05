@@ -13,6 +13,8 @@ Proyect for testing purposes, using Angular 17 new features.
 
 ## Preview
 
+💻 https://angular-dashboard-gp.netlify.app
+
 ![Preview](./src/assets/screenshot.png)
 
 ## Development server
